@@ -15,7 +15,19 @@ Features:
     * It automatically includes matchers from other recipes, that contain such a Ruby file
         
  * By default it mocks any inclusion of recipes, except described one. You can specify additional one by calling `allow_recipe` in spec DSL. 
+ * Allows to supply additional cookbook directory for your specs. Just add in `spec_helper.rb` file the following code
+       
+        EcomDev::ChefSpec::Configuration.cookbook_path('path/to/your/test/cookbooks')
+        EcomDev::ChefSpec::Configuration.cookbook_path('another/path/to/your/test/cookbooks')
+        
+    It will automatically include the following paths for cookbook search:
 
+    * Berkshelf or Librarian path if any of those was included before
+    * `path/to/your/test/cookbooks`
+    * `another/path/to/your/test/cookbooks`  
+   
+
+   
 
 ## Installation
 
