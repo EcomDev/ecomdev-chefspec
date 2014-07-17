@@ -8,17 +8,21 @@ Features:
     * By default it looks in `spec/matchers.rb`, `spec/matchers/*.rb`,  `spec/library/matchers.rb`, `spec/library/matchers/*.rb`
     * Example of the file DSL
        
-        matcher :resource_name, :action
-        matcher :resource_name, [:delete, :create]
-        runner :resource_name
+      ```ruby
+      matcher :resource_name, :action
+      matcher :resource_name, [:delete, :create]
+      runner :resource_name
+      ```
         
     * It automatically includes matchers from other recipes, that contain such a Ruby file
         
  * By default it mocks any inclusion of recipes, except described one. You can specify additional one by calling `allow_recipe` in spec DSL. 
  * Allows to supply additional cookbook directory for your specs. Just add in `spec_helper.rb` file the following code
        
-        EcomDev::ChefSpec::Configuration.cookbook_path('path/to/your/test/cookbooks')
-        EcomDev::ChefSpec::Configuration.cookbook_path('another/path/to/your/test/cookbooks')
+   ```ruby
+   EcomDev::ChefSpec::Configuration.cookbook_path('path/to/your/test/cookbooks')
+   EcomDev::ChefSpec::Configuration.cookbook_path('another/path/to/your/test/cookbooks')
+   ```
         
     It will automatically include the following paths for cookbook search:
 
@@ -37,22 +41,33 @@ Features:
 ## Installation
 
 Add this line to your application's Gemfile:
-
-    gem 'ecomdev-chefspec'
+   
+```ruby
+gem 'ecomdev-chefspec'
+```
 
 And then execute:
-
-    $ bundle
+   
+```bash
+bundle
+```
 
 Or install it yourself as:
 
-    $ gem install ecomdev-chefspec
+```bash
+gem install ecomdev-chefspec
+```
 
 ## Usage
 
-inside of your specs helper you should include this library after chefspec
+Inside of your specs helper you should include this library after chefspec
 
-    require 'ecomdev/chefspec'
+```ruby
+require 'ecomdev/chefspec'
+```
+
+Please note, that you should include it in the end, after all the chef spec files are included. E.g. if you use bershelf loader for your cookbooks, you should include `ecomdev/chefspec` after you've included `chefspec/berkshelf`
+
     
 
 ## Contributing
