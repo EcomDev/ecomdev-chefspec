@@ -27,6 +27,11 @@ Features:
     * `another/path/to/your/test/cookbooks`  
    
 
+## Build Status
+
+[![Develop Branch](https://api.travis-ci.org/IvanChepurnyi/ecomdev-chefspec.svg?branch=develop)](https://travis-ci.org/IvanChepurnyi/ecomdev-chefspec) **Next Release Branch**
+    
+[![Master Branch](https://api.travis-ci.org/IvanChepurnyi/ecomdev-chefspec.svg)](https://travis-ci.org/IvanChepurnyi/ecomdev-chefspec) **Current Stable Release** 
    
 
 ## Installation
