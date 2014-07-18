@@ -52,7 +52,7 @@ describe EcomDev::ChefSpec::Stub::FileSystem do
 
       expect(File.exists?(__FILE__)).to eq(false)
       expect(File.exists?('test-file-non-exists-in-real-system')).to eq(true)
-      expect(File.exists?(__dir__)).to eq(true)
+      expect(File.exists?(File.dirname(__FILE__))).to eq(true)
     end
   end
 
