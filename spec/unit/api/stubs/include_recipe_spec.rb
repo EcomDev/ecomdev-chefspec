@@ -1,3 +1,4 @@
+require 'spec_helper'
 
 describe 'test::test' do
   let (:instance) { EcomDev::ChefSpec::Stub::IncludeRecipe.instance }

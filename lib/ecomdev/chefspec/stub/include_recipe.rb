@@ -2,7 +2,7 @@ module EcomDev::ChefSpec::Stub
   class IncludeRecipe
     class << self
       extend Forwardable
-      def_delegators :instance, :teardown!, :setup!, :allow_recipe, :reset
+      def_delegators :instance, :allow_recipe, :reset
     end
 
     include Singleton
@@ -51,7 +51,7 @@ module EcomDev::ChefSpec::Stub
       end
     end
 
-    def after_example(object)
+    def after_example(*)
       reset
     end
   end
