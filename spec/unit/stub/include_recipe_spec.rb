@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EcomDev::ChefSpec::Stub::IncludeRecipe do
   describe '#allow_recipe' do
     it 'should add recipe to the list of allowed' do
@@ -16,7 +14,7 @@ describe EcomDev::ChefSpec::Stub::IncludeRecipe do
       end
     end
 
-    context 'when there is a described recipe', :allow_recipe => true do
+    context 'when there is a described recipe' do
       let (:runner) { ChefSpec::Runner.new }
       let (:described_recipe) { 'test::test' }
 

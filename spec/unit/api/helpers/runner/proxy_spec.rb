@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe ChefSpec::API::EcomDevHelpersRunner::RunnerProxy do
   it 'does not create any method unless method of runner is executed' do

@@ -1,9 +1,14 @@
-require 'spec_helper'
-
 describe EcomDev::ChefSpec::Configuration do
   before(:each) do
+    @_instance = described_class.instance
     Singleton.__init__(described_class)
   end
+
+  after(:each) do
+    described_class.instance_variable_set(:@singleton__instance__, @_instance)
+  end
+
+
 
   def callback_klass
     Class.new
@@ -96,20 +101,13 @@ describe EcomDev::ChefSpec::Configuration do
     end
 
     it 'calls a callback method setup! if it exists' do
-      callback = double('callback')
+      callback = Class.new do
+        def setup!
+          'test'
+        end
+      end.new
 
-      allow(callback).to receive(:respond_to?).with(:setup!).and_return(true)
       expect(callback).to receive(:setup!)
-      described_class.callback(callback)
-      described_class.setup!
-    end
-
-    it 'does not call a callback method setup! if it is not defined' do
-      callback = double('callback')
-
-      allow(callback).to receive(:respond_to?).with(:setup!).and_return(false)
-      expect(callback).not_to receive(:setup!)
-
       described_class.callback(callback)
       described_class.setup!
     end
@@ -117,22 +115,90 @@ describe EcomDev::ChefSpec::Configuration do
 
   describe '#teardown!' do
     it 'calls a callback method teardown! if it exists' do
-      callback = double('callback')
+      callback = Class.new do
+        def teardown!
+          'test'
+        end
+      end.new
 
-      allow(callback).to receive(:respond_to?).with(:teardown!).and_return(true)
       expect(callback).to receive(:teardown!)
       described_class.callback(callback)
       described_class.teardown!
     end
+  end
 
-    it 'does not call a callback method teardown! if it is not defined' do
-      callback = double('callback')
+  describe '#before_example' do
+    it 'calls a callback method before_example if it exists with self as an argument' do
+      callback = Class.new do
+        def before_example(example)
+          example
+        end
+      end.new
 
-      allow(callback).to receive(:respond_to?).with(:teardown!).and_return(false)
-      expect(callback).not_to receive(:teardown!)
-
+      expect(callback).to receive(:before_example).with(self)
       described_class.callback(callback)
-      described_class.teardown!
+      described_class.before_example(self)
+    end
+
+    it 'calls a callback method before_example without arguments, if it does not take any' do
+      callback = Class.new do
+        def before_example
+          'test'
+        end
+      end.new
+
+      expect(callback).to receive(:before_example).with(no_args)
+      described_class.callback(callback)
+      described_class.before_example(self)
+    end
+
+
+  end
+
+  describe '#after_example' do
+    it 'calls a callback method before_example if it exists with self as an argument' do
+      callback = Class.new do
+        def after_example(example)
+          example
+        end
+      end.new
+
+      expect(callback).to receive(:after_example).with(self)
+      described_class.callback(callback)
+      described_class.after_example(self)
+    end
+
+    it 'calls a callback method before_example without arguments, if it does not take any' do
+      callback = Class.new do
+        def after_example
+          'test'
+        end
+      end.new
+
+      expect(callback).to receive(:after_example).with(no_args)
+      described_class.callback(callback)
+      described_class.after_example(self)
     end
   end
+
+  context 'when callbacks are not having defined methods' do
+    [:setup!, :teardown!, :before_example, :after_example].each do |method|
+      describe '#' + method.to_s do
+        it 'does not call a callback method '+ method.to_s + ' if it is not defined' do
+          callback = double('callback')
+
+          allow(callback).to receive(:respond_to?).with(anything).and_return(false)
+          expect(callback).not_to receive(method)
+
+          described_class.callback(callback)
+          if described_class.instance_method(method).arity == 1
+            described_class.send(method, self)
+          else
+            described_class.send(method)
+          end
+        end
+      end
+    end
+  end
+
 end

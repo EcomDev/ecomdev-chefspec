@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EcomDev::ChefSpec::Stub::FileSystem do
   describe '#before_example' do
     it 'sets current example before' do

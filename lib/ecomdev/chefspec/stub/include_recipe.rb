@@ -24,6 +24,10 @@ module EcomDev::ChefSpec::Stub
     end
 
     def before_example(object)
+      if object.respond_to?(:described_recipe) && object.described_recipe.match(/^[a-z_0-9]+::[a-z_0-9]+$/)
+        allow_recipe(object.described_recipe)
+      end
+
       stub_include(object) unless allowed_recipes.empty?
     end
 
@@ -57,15 +61,4 @@ module EcomDev::ChefSpec::Stub
   end
 end
 
-RSpec.configure do |c|
-  c.before(:each) do
-    if respond_to?(:described_recipe) && described_recipe.match(/^[a-z_0-9]+::[a-z_0-9]+$/)
-      EcomDev::ChefSpec::Stub::IncludeRecipe.allow_recipe described_recipe
-    end
-    EcomDev::ChefSpec::Stub::IncludeRecipe.instance.before_example(self)
-  end
-
-  c.after(:each) do
-    EcomDev::ChefSpec::Stub::IncludeRecipe.instance.after_example(self)
-  end
-end
+EcomDev::ChefSpec::Configuration.callback(EcomDev::ChefSpec::Stub::IncludeRecipe.instance)
