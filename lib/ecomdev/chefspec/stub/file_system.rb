@@ -64,12 +64,4 @@ module EcomDev::ChefSpec::Stub
   end
 end
 
-RSpec.configure do |c|
-  c.before(:each) do
-    EcomDev::ChefSpec::Stub::FileSystem.instance.before_example(self)
-  end
-
-  c.after(:each) do
-    EcomDev::ChefSpec::Stub::FileSystem.instance.after_example
-  end
-end
+EcomDev::ChefSpec::Configuration.callback(EcomDev::ChefSpec::Stub::FileSystem.instance)

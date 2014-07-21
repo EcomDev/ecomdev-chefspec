@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe EcomDev::ChefSpec::Resource::Matcher do
   before(:each) do

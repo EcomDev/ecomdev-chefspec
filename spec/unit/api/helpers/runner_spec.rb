@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe ChefSpec::API::EcomDevHelpersRunner do
   it 'returns a chef runner proxy class' do

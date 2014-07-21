@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EcomDev::ChefSpec::Resource::Matcher::Helper do
 
   def create_method_body

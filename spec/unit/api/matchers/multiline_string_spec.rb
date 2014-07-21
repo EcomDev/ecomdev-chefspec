@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe ChefSpec::API::EcomDevMatcherMultilineString do
   it 'should allow match line starts with' do

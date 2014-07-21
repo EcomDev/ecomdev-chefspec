@@ -40,7 +40,7 @@ module EcomDev
         def extend_api
           matchers.each do |method, info|
             Helper.add(method) do |identity|
-              ChefSpec::Matchers::ResourceMatcher.new(info.resource, info.action, identity)
+              ::ChefSpec::Matchers::ResourceMatcher.new(info[:resource], info[:action], identity)
             end
           end
         end
@@ -75,7 +75,7 @@ module EcomDev
         end
 
         def load_matcher_file(file)
-           DSL.load(file)
+          DSL.load(file)
         end
 
         def search_patterns
@@ -105,22 +105,23 @@ module EcomDev
         end
 
         private
-          def add_matcher(resource, action)
-            resource_name = resource.to_s
-            action_name = action.to_s
-            matcher_name = action_name + '_' + resource_name
-            matcher = matcher_name.to_sym
-            unless @matchers.key?(matcher)
-              @matchers[matcher] = {action: action_name.to_sym, resource: resource_name.to_sym}
-            end
+        def add_matcher(resource, action)
+          resource_name = resource.to_s
+          action_name = action.to_s
+          matcher_name = action_name + '_' + resource_name
+          matcher = matcher_name.to_sym
+          unless @matchers.key?(matcher)
+            @matchers[matcher] = {action: action_name.to_sym, resource: resource_name.to_sym}
           end
+        end
 
-          def add_runner(resource_name)
-            resource = resource_name.to_sym
-            @runners << resource unless @runners.include?(resource)
-          end
+        def add_runner(resource_name)
+          resource = resource_name.to_sym
+          @runners << resource unless @runners.include?(resource)
+        end
       end
     end
   end
 end
 
+EcomDev::ChefSpec::Resource::Matcher.register

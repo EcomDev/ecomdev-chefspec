@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EcomDev::ChefSpec::Resource::Matcher::DSL do
   let(:instance) { described_class.new }
   let(:matcher) { EcomDev::ChefSpec::Resource::Matcher }

@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe ChefSpec::API::EcomDevStubsFileSystem do
   describe '#file_exists' do
