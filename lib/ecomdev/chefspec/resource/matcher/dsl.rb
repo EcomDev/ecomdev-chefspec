@@ -13,7 +13,9 @@ module EcomDev
 
            def self.load(filename)
              dsl = new
-             dsl.instance_eval(File.read(filename), filename)
+             content = File.read(filename)
+             content.taint
+             dsl.instance_eval(content, filename)
              dsl
            end
         end

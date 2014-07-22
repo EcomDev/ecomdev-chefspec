@@ -2,5 +2,6 @@ require 'chefspec' unless defined?(ChefSpec) # Require chef spec only if it is n
 
 require_relative 'chefspec/version'
 require_relative 'chefspec/configuration'
+require_relative 'chefspec/helpers'
 require_relative 'chefspec/resource/matcher'
 require_relative 'chefspec/api'
