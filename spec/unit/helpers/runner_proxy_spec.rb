@@ -1,5 +1,5 @@
 
-describe ChefSpec::API::EcomDevHelpersRunner::RunnerProxy do
+describe EcomDev::ChefSpec::Helpers::RunnerProxy do
   it 'does not create any method unless method of runner is executed' do
     runner_proxy = described_class.new
     expect(runner_proxy.instance_variable_get('@target')).to be_nil

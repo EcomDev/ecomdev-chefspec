@@ -12,5 +12,4 @@ module ChefSpec::API::EcomDevStubsFileSystem
   def stub_file_read(file, content, *additional_args)
     EcomDev::ChefSpec::Stub::FileSystem.instance.file_read(file, content, *additional_args)
   end
-
 end
