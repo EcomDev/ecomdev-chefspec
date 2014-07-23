@@ -26,15 +26,15 @@ module EcomDev::ChefSpec::Helpers
       @args[0]
     end
 
-    def before(method, instance_eval = true, &block)
+    def before(method, instance_eval = false, &block)
       define_proxy_block(method, :before, instance_eval, &block)
     end
 
-    def after(method, instance_eval = true, &block)
+    def after(method, instance_eval = false, &block)
       define_proxy_block(method, :after, instance_eval, &block)
     end
 
-    def block(method, instance_eval = true, &block)
+    def block(method, instance_eval = false, &block)
       define_proxy_block(method, :block, instance_eval, &block)
     end
 
@@ -48,7 +48,7 @@ module EcomDev::ChefSpec::Helpers
 
     # Proxied chef runner
     protected
-    def define_proxy_block(method, type, instance_eval = true, &block)
+    def define_proxy_block(method, type, instance_eval = false, &block)
       if block_given?
         @blocks[type][method] ||= Array.new
         @blocks[type][method] << {block: block, instance_eval: instance_eval}
