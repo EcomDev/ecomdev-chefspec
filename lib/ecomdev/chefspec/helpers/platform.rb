@@ -7,8 +7,8 @@ module EcomDev::ChefSpec::Helpers
       @os = {}
       @family = {}
 
-      path ||= self.class.platform_path
-      file ||= self.class.platform_file
+      path = self.class.platform_path if path.nil?
+      file = self.class.platform_file if file.nil?
 
       json_path = File.join(path, file)
 
