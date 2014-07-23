@@ -33,10 +33,10 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
     runner_proxy = described_class.new
     block = Proc.new { 'test' }
     runner_proxy.before(:method_name, &block)
-    runner_proxy.before(:method_name, false,  &block)
+    runner_proxy.before(:method_name, true,  &block)
     expect(runner_proxy.proxy_blocks[:before]).to eq(method_name: [
-        {block: block, instance_eval: true},
-        {block: block, instance_eval: false}
+        {block: block, instance_eval: false},
+        {block: block, instance_eval: true}
     ])
   end
 
@@ -44,10 +44,10 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
     runner_proxy = described_class.new
     block = Proc.new { 'test' }
     runner_proxy.after(:method_name, &block)
-    runner_proxy.after(:method_name, false,  &block)
+    runner_proxy.after(:method_name, true,  &block)
     expect(runner_proxy.proxy_blocks[:after]).to eq(method_name: [
-        {block: block, instance_eval: true},
-        {block: block, instance_eval: false}
+        {block: block, instance_eval: false},
+        {block: block, instance_eval: true}
     ])
   end
 
@@ -55,10 +55,10 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
     runner_proxy = described_class.new
     block = Proc.new { 'test' }
     runner_proxy.block(:method_name, &block)
-    runner_proxy.block(:method_name, false,  &block)
+    runner_proxy.block(:method_name, true,  &block)
     expect(runner_proxy.proxy_blocks[:block]).to eq(method_name: [
-        {block: block, instance_eval: true},
-        {block: block, instance_eval: false}
+        {block: block, instance_eval: false},
+        {block: block, instance_eval: true}
     ])
   end
 
@@ -72,7 +72,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
 
     expect(checker).to receive(:called).with(instance_of(ChefSpec::Runner)).exactly(1).times
 
-    runner_proxy.before(:node, &block)
+    runner_proxy.before(:node, true, &block)
     runner_proxy.node
   end
 
@@ -90,7 +90,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
     expect(checker).to receive(:args).with(Array.new).exactly(1).times
     expect(checker).to receive(:called).with(instance_of(ChefSpec::Runner)).exactly(1).times
 
-    runner_proxy.after(:node, &block)
+    runner_proxy.after(:node, true, &block)
     runner_proxy.node
   end
 
@@ -116,7 +116,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
                            instance_of(Chef::Node)
                        ).exactly(1).times
 
-    runner_proxy.block(:initialize, &block)
+    runner_proxy.block(:initialize, true, &block)
     runner_proxy.node
   end
 
@@ -141,7 +141,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
                        ).exactly(1).times
 
     allow_any_instance_of(ChefSpec::Runner).to receive(:converge).and_yield
-    runner_proxy.block(:initialize, &block)
+    runner_proxy.block(:initialize, true, &block)
     runner_proxy.converge(&block_converge)
   end
 
@@ -160,7 +160,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
                        ).exactly(1).times
 
     allow_any_instance_of(ChefSpec::Runner).to receive(:converge).and_yield
-    runner_proxy.block(:initialize, false, &block)
+    runner_proxy.block(:initialize, &block)
     runner_proxy.converge
   end
 
