@@ -43,6 +43,10 @@ module EcomDev
               ::ChefSpec::Matchers::ResourceMatcher.new(info[:resource], info[:action], identity)
             end
           end
+
+          runners.each do |runner|
+            ::ChefSpec::Runner.define_runner_method(runner.to_sym)
+          end
         end
 
         def matcher(resource_name, action)
