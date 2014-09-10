@@ -77,9 +77,9 @@ Features:
 
 ## Build Status
 
-[![Develop Branch](https://api.travis-ci.org/IvanChepurnyi/ecomdev-chefspec.svg?branch=develop)](https://travis-ci.org/IvanChepurnyi/ecomdev-chefspec) **Next Release Branch**
+[![Develop Branch](https://api.travis-ci.org/EcomDev/ecomdev-chefspec.svg?branch=develop)](https://travis-ci.org/EcomDev/ecomdev-chefspec) **Next Release Branch**
     
-[![Master Branch](https://api.travis-ci.org/IvanChepurnyi/ecomdev-chefspec.svg)](https://travis-ci.org/IvanChepurnyi/ecomdev-chefspec) **Current Stable Release** 
+[![Master Branch](https://api.travis-ci.org/EcomDev/ecomdev-chefspec.svg)](https://travis-ci.org/EcomDev/ecomdev-chefspec) **Current Stable Release** 
    
 
 ## Installation
@@ -116,7 +116,7 @@ Please note, that you should include it in the end, after all the chef spec file
 
 ## Contributing
 
-1. Fork it ( https://github.com/IvanChepurnyi/ecomdev-chefspec/fork )
+1. Fork it ( https://github.com/EcomDev/ecomdev-chefspec/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
