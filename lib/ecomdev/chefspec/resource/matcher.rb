@@ -45,7 +45,7 @@ module EcomDev
           end
 
           runners.each do |runner|
-            ::ChefSpec::Runner.define_runner_method(runner.to_sym)
+            ::ChefSpec.define_matcher(runner.to_sym)
           end
         end
 
