@@ -97,7 +97,7 @@ module EcomDev::ChefSpec::Helpers
         return @target
       end
       block_args = nil
-      @target = ChefSpec::Runner.new(*@args) do |*args|
+      @target = ChefSpec::SoloRunner.new(*@args) do |*args|
         block_args = args
       end
       invoke_blocks(:initialize, :block, *block_args, &@constructor_block)

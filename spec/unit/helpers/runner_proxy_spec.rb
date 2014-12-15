@@ -8,8 +8,8 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
   it 'passes constructor options to original constructor' do
     runner_proxy = described_class.new(platform: 'ubuntu')
 
-    expect_any_instance_of(ChefSpec::Runner).to receive(:initialize).with({platform: 'ubuntu'}).and_call_original
-    allow_any_instance_of(ChefSpec::Runner).to receive(:node).and_return('fake')
+    expect_any_instance_of(ChefSpec::SoloRunner).to receive(:initialize).with({platform: 'ubuntu'}).and_call_original
+    allow_any_instance_of(ChefSpec::SoloRunner).to receive(:node).and_return('fake')
 
     # Call node method of proxied object
     expect(runner_proxy.node).to eq('fake')
@@ -70,7 +70,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
       checker.called(self)
     }
 
-    expect(checker).to receive(:called).with(instance_of(ChefSpec::Runner)).exactly(1).times
+    expect(checker).to receive(:called).with(instance_of(ChefSpec::SoloRunner)).exactly(1).times
 
     runner_proxy.before(:node, true, &block)
     runner_proxy.node
@@ -88,7 +88,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
 
     expect(checker).to receive(:node).with(instance_of(Chef::Node)).exactly(1).times
     expect(checker).to receive(:args).with(Array.new).exactly(1).times
-    expect(checker).to receive(:called).with(instance_of(ChefSpec::Runner)).exactly(1).times
+    expect(checker).to receive(:called).with(instance_of(ChefSpec::SoloRunner)).exactly(1).times
 
     runner_proxy.after(:node, true, &block)
     runner_proxy.node
@@ -108,7 +108,7 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
     runner_proxy = described_class.new(&block_constructor)
 
     expect(checker).to receive(:called).with(
-                           instance_of(ChefSpec::Runner),
+                           instance_of(ChefSpec::SoloRunner),
                            instance_of(Chef::Node)
                        ).exactly(1).times
     expect(checker).to receive(:called_constructor).with(
@@ -134,13 +134,13 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
     runner_proxy = described_class.new
 
     expect(checker).to receive(:called).with(
-                           instance_of(ChefSpec::Runner)
+                           instance_of(ChefSpec::SoloRunner)
                        ).exactly(1).times
     expect(checker).to receive(:called_converege).with(
                            instance_of(self.class)
                        ).exactly(1).times
 
-    allow_any_instance_of(ChefSpec::Runner).to receive(:converge).and_yield
+    allow_any_instance_of(ChefSpec::SoloRunner).to receive(:converge).and_yield
     runner_proxy.block(:initialize, true, &block)
     runner_proxy.converge(&block_converge)
   end
@@ -156,10 +156,10 @@ describe EcomDev::ChefSpec::Helpers::RunnerProxy do
 
     expect(checker).to receive(:called).with(
                            instance_of(self.class),
-                           instance_of(ChefSpec::Runner)
+                           instance_of(ChefSpec::SoloRunner)
                        ).exactly(1).times
 
-    allow_any_instance_of(ChefSpec::Runner).to receive(:converge).and_yield
+    allow_any_instance_of(ChefSpec::SoloRunner).to receive(:converge).and_yield
     runner_proxy.block(:initialize, &block)
     runner_proxy.converge
   end

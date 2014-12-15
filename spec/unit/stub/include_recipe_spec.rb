@@ -15,7 +15,7 @@ describe EcomDev::ChefSpec::Stub::IncludeRecipe do
     end
 
     context 'when there is a described recipe' do
-      let (:runner) { ChefSpec::Runner.new }
+      let (:runner) { ChefSpec::SoloRunner.new }
       let (:described_recipe) { 'test::test' }
 
       it 'loaded recipes should be empty in the beginning' do

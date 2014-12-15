@@ -127,11 +127,11 @@ describe EcomDev::ChefSpec::Resource::Matcher do
       expect(EcomDev::ChefSpec::Resource::Matcher::Helper.instance_methods).to contain_exactly(:create_test)
     end
 
-    it 'should define runner method in ChefSpec::Runner 'do
+    it 'should define runner method in ChefSpec::SoloRunner 'do
       described_class.runner(:test_resource)
       described_class.instance.extend_api
 
-      expect(::ChefSpec::Runner.instance_methods).to include(:test_resource)
+      expect(::ChefSpec.matchers.keys).to include(:test_resource)
     end
   end
 
